@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment{
-        BUILD_SERVER='ec2-user@172.31.0.234'
+        BUILD_SERVER='ec2-user@172.31.32.122'
     }
 
     stages {
@@ -44,7 +44,7 @@ pipeline {
             agent any
             steps {
                 script{
-                    sshagent(['slave2']) {
+                    sshagent(['sshslave']) {
                     echo "Executing the code"
                     sh "scp  -o StrictHostKeyChecking=no server-config.sh ${BUILD_SERVER}:/home/ec2-user"
                     sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER} 'bash server-config.sh'"
