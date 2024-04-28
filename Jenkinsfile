@@ -1,26 +1,59 @@
 pipeline {
-    agent any
+    agent none
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "mymaven"
     }
 
+    environment{
+        BUILD_SERVER='ec2-user@172.31.32.122'
+    }
+
     stages {
         stage('Compile') {
+            agent any
             steps {
-               echo "compiling the code"
+                script{
+                    echo "Compiling the code"
+                    sh "mvn compile"
+                }
+                
             }
+
+            
         }
-        stage('UnitTest') {
+        stage('UnitTest') { // running on slave1
+            //agent {label 'linux_slave'}
+            agent any
             steps {
-               echo "Test the code"
+                script{
+                    echo "RUNNING THE TC"
+                    sh "mvn test"
+                }
+                }
+            
+            post{
+                always{
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
+            
         }
-        stage('Package') {
+        stage('Package') { // running on slave2 via ssh-agent
+            agent any
             steps {
-               echo "Package the code"
+                script{
+                    sshagent(['sshslave']) {
+                    echo "Executing the code"
+                    sh "scp  -o StrictHostKeyChecking=no server-config.sh ${BUILD_SERVER}:/home/ec2-user"
+                    sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER} 'bash server-config.sh'"
+                }
+                }
+                
             }
+
+            
         }
     }
 }
