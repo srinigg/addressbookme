@@ -63,7 +63,7 @@ pipeline {
                 script{
                      echo "Deploy the container"
                 sshagent(['sshslave']) {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-srini', passwordVariable: 'password', usernameVariable: 'username')]) {
                 sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER_IP} sudo yum install docker -y"
                  sh "ssh  ${DEPLOY_SERVER_IP} sudo systemctl start docker"
                 sh "ssh ${DEPLOY_SERVER_IP} sudo docker login -u ${username} -p ${password}"
