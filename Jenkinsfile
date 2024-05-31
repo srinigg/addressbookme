@@ -6,11 +6,11 @@ pipeline {
         maven "mymaven"
     }
     environment{
-        BUILD_SERVER='ec2-user@172.31.42.86'
+        BUILD_SERVER='ec2-user@172.31.2.133'
         IMAGE_NAME='devopstrainer/java-mvn-privaterepos:$BUILD_NUMBER'
         //DEPLOY_SERVER='ec2-user@172.31.14.15'
-        ACM_IP=''
-        DOCKER_REG_PASSWORD=""
+        ACM_IP='ec2-user@172.31.6.1'
+        DOCKER_REG_PASSWORD=credentials('DOCKER_REG_PASSWORD')
         ACCESS_KEY=credentials('ACCESS_KEY')
         SECRET_ACCESS_KEY=credentials('SECRET_ACCESS_KEY')
     }
@@ -87,6 +87,9 @@ pipeline {
                 script{
                     sshagent(['slave2']) {
                      sh "scp -o StrictHostKeyChecking=no ansible/* ${ACM_IP}:/home/ec2-user"
+                     withCredentials([sshUserPrivateKey(credentialsId: 'Ansible_target', keyFileVariable: 'keyfile', usernameVariable: 'user')]) {
+                        sh "scp -o StrictHostKeyChecking=no $keyfile ${ACM_IP}:/home/ec2-user/.ssh/id_rsa"
+                     }
                      sh "ssh -o StrictHostKeyChecking=no ${ACM_IP} bash /home/ec2-user/ansible-config.sh ${ACCESS_KEY} ${SECRET_ACCESS_KEY} ${DOCKER_REG_PASSWORD} ${IMAGE_NAME}"
 
                
