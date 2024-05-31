@@ -3,6 +3,6 @@ output "instance-ip-0" {
 
 }
 
-output "subnet-id" {
-  value = module.mysubnet.subnet.id
-}
+# output "subnet-id" {
+#   value = module.mysubnet.subnet.id
+# }
