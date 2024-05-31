@@ -38,10 +38,15 @@ provider "aws" {
 #   az                = var.az
 #   env               = var.env
 # }
+# variable "vpc_id" {}
+
+data "aws_vpc" "selected" {
+  id = var.vpc_id
+}
 
 module "myec2" {
   source        = "./modules/webserver"
-  #vpc_id        = aws_vpc.ownvpc.id
+  vpc_id        = data.aws_vpc.selected.id
   #subnet_id     = module.mysubnet.subnet.id
   env           = var.env
   instance_type = var.instance_type

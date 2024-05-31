@@ -17,16 +17,12 @@ data "aws_ami" "my-ami" {
   owners = ["amazon"] # Canonical
 }
 
-variable "vpc_id" {}
 
-data "aws_vpc" "selected" {
-  id = var.vpc_id
-}
 
 resource "aws_security_group" "mywebsecurity" {
   name        = "ownsecurityrules"
   description = "Allow TLS inbound traffic"
-   vpc_id      = data.aws_vpc.selected.id
+   vpc_id      = var.vpc_id
  
    ingress {
     description      = "SSH"
