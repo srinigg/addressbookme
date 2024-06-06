@@ -2,10 +2,10 @@
 cloud_final_modules:
 - [users-groups,always]
 groups:
-  - srinigg
+  - ansible
 users:
-  - name: srinigg
-    primary_group: srinigg
+  - name: ansible
+    primary_group: ansible
     sudo: [ "ALL=(ALL) NOPASSWD:ALL" ]
     shell: /bin/bash
     ssh-authorized-keys: 
