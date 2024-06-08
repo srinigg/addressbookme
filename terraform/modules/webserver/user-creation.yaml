@@ -1,0 +1,12 @@
+#cloud-config
+cloud_final_modules:
+- [users-groups,always]
+groups:
+  - ansible
+users:
+  - name: ansible
+    primary_group: ansible
+    sudo: [ "ALL=(ALL) NOPASSWD:ALL" ]
+    shell: /bin/bash
+    ssh-authorized-keys: 
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMlNOU8PB33OqA+ORfhHwrBr0LLbI04iAC+hLSWnRVtGURMdmXV3oNUUW4Qic/+2bkKZGKllFriTENVCqY75+5Q/jDLRIv+KZ2K1G8F37IhOgxiuDn3mApHnyA/wJaxw3LhxIibfuafGI5Q8NR8cNwWK3OdY+Kxr6OD1E/SpVdq+pX8dDdIha0shIQQRU6j2igL6h7JjbvVIn+H3vNOKYPDCy2heGgjh+sTg+Wc5LPYAjwI4EbSwwe2XA5tMzoDE9fWjEe5dX/E1AsnFXrNRoS2R71QDJa7YfdD6nM+mticrF0dycC36F7l7wJFoccGFC5zXkmnk9Nv+c9H/RCLaUF rsa-key-20240527
