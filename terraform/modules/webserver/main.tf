@@ -36,16 +36,16 @@ resource "aws_instance" "tf2server" {
   }
 }
 
-output "ipaddress" {
-  value = aws_instance.tf2server.public_ip
+# output "ipaddress" {
+#   value = aws_instance.tf2server.public_ip
 
-}
+# }
 
-output "subnet" {
-  value = aws_instance.tf2server.subnet_id
-}
+# output "subnet" {
+#   value = aws_instance.tf2server.subnet_id
+# }
 
 
-output "sgroup" {
-  value = aws_instance.tf2server.security_groups
-}
+# output "sgroup" {
+#   value = aws_instance.tf2server.security_groups
+# }

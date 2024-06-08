@@ -45,9 +45,18 @@ data "aws_vpc" "selected" {
 }
 
 module "myec2" {
-  source        = "./modules/webserver"
-  vpc_id        = data.aws_vpc.selected.id
+  source        = "./modules/buildserver"
+  #vpc_id        = data.aws_vpc.selected.id
   #subnet_id     = module.mysubnet.subnet.id
-  env           = var.env
-  instance_type = var.instance_type
+  #env           = var.env
+  # = var.instance_type
 }
+
+module "myec21" {
+  source        = "./modules/webserver"
+  #vpc_id        = data.aws_vpc.selected.id
+  #subnet_id     = module.mysubnet.subnet.id
+  #env           = var.env
+  #instance_type = var.instance_type
+}
+

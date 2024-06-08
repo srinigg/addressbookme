@@ -6,7 +6,5 @@ variable "instance_type" {}
 # variable "subnet_cidr_block" {
 
 # }
-variable "env" {
-
-}
+variable "env" {}
 variable vpc_id{}
